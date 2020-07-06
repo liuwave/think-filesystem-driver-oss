@@ -21,7 +21,6 @@
             "email": "liuwave@qq.com"
         }
     ],
-    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "liuwave\\think\\filesystem\\driver\\": "src/"
