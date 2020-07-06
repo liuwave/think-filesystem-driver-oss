@@ -1,0 +1,30 @@
+{
+    "name": "liuwave/think-filesystem-driver-oss",
+    "description": "这是一个基于阿里云对象存储的thinkphp6.0 Filesystem驱动",
+    "type": "library",
+    "keywords": [
+        "think-filesystem-driver-oss",
+        "对象存储",
+        "filesystem",
+        "oss"
+    ],
+    "homepage": "https://github.com/liuwave/think-filesystem-driver-oss",
+    "require": {
+        "php": ">=7.2.0",
+        "topthink/framework": "^6.0.0",
+        "xxtime/flysystem-aliyun-oss": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "liuwave",
+            "email": "liuwave@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "liuwave\\think\\filesystem\\driver\\": "src/"
+        }
+    }
+}
