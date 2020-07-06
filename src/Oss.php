@@ -29,11 +29,11 @@ class Oss extends Driver
     {
         $config = [
           'accessId'     => $this->config[ 'accessId' ] ?? '',
-          'accessSecret' => $this->config[ 'accessSecret' ],
+          'accessSecret' => $this->config[ 'accessSecret' ]??'',
           'bucket'       => $this->config[ 'bucket' ],
           'endpoint'     => $this->config[ 'endpoint' ],
         ];
-        if (!empty($config[ 'accessId' ])) {
+        if (empty($config[ 'accessId' ])) {
             //使用 函数计算 中的 credentials
             $context = request()->header('context');
             if (!empty($context[ 'credentials' ])) {
