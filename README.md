@@ -1,6 +1,6 @@
 # think-filesystem-driver-oss
 
-这是一个基于阿里云对象存储的thinkphp6.0 Filesystem驱动，支持阿里云函数计算
+这是一个基于阿里云对象存储的thinkphp6.0 Filesystem驱动，支持阿里云函数计算。
 
 ## 安装
 
@@ -67,4 +67,10 @@ MIT
 - xxtime/flysystem-aliyun-oss
 
 
+
+
+## 更多
+
+- [腾讯云liuwave/think-filesystem-driver-cos](https://github.com/liuwave/think-filesystem-driver-cos)
+- [七牛云liuwave/think-filesystem-driver-kodo](https://github.com/liuwave/think-filesystem-driver-kodo)
 
