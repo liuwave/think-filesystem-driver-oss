@@ -29,18 +29,15 @@ class Oss extends Driver
     {
         $config = [
           'accessId'     => $this->config[ 'accessId' ] ?? '',
-          'accessSecret' => $this->config[ 'accessSecret' ]??'',
+          'accessSecret' => $this->config[ 'accessSecret' ] ?? '',
           'bucket'       => $this->config[ 'bucket' ],
           'endpoint'     => $this->config[ 'endpoint' ],
         ];
         if (empty($config[ 'accessId' ])) {
             //使用 函数计算 中的 credentials
-            $context = request()->header('context');
-            if (!empty($context[ 'credentials' ])) {
-                $config[ 'accessId' ]     = $context[ 'credentials' ][ 'accessKeyId' ];
-                $config[ 'accessSecret' ] = $context[ 'credentials' ][ 'accessKeySecret' ];
-                $config[ 'token' ]        = $context[ 'credentials' ][ 'securityToken' ];
-            }
+            $config[ 'accessId' ]     = request()->server('accessKeyId');
+            $config[ 'accessSecret' ] = request()->server('accessKeySecret');
+            $config[ 'token' ]        = request()->server('securityToken');
         }
         
         return new OssAdapter($config);
