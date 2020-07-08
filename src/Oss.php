@@ -35,9 +35,9 @@ class Oss extends Driver
         ];
         if (empty($config[ 'accessId' ])) {
             //使用 函数计算 中的 credentials
-            $config[ 'accessId' ]     = request()->server('accessKeyId');
-            $config[ 'accessSecret' ] = request()->server('accessKeySecret');
-            $config[ 'token' ]        = request()->server('securityToken');
+            $config[ 'accessId' ]     = request()->server('context_credentials_accessKeyID');
+            $config[ 'accessSecret' ] = request()->server('context_credentials_accessKeySecret');
+            $config[ 'token' ]        = request()->server('context_credentials_securityToken');
         }
         
         return new OssAdapter($config);
