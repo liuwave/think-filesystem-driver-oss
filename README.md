@@ -13,8 +13,10 @@
 ```
 'oss' => [
     'type'         => \liuwave\think\filesystem\driver\Oss::class,
-    'accessId'     => '******',//为空则使用函数计算 runtime context提供的 credentials
-    'accessSecret' => '******',//使用函数计算credentials时，可以为空
+    'credentials'=>[//若为false,则使用函数计算 runtime context提供的 credentials
+        'accessId'     => '******',
+        'accessSecret' => '******',
+    ],
     'bucket'       => 'bucket',
     'endpoint'     => 'oss-cn-hongkong.aliyuncs.com',
     'url'          => '//oss-test-for-all.oss-cn-beijing.aliyuncs.com'
@@ -52,7 +54,7 @@ $file=\request()->file('file');
 $filesystem     = \think\facade\Filesystem::disk('oss');
 $saveName       = $filesystem->putFile('/path/to/save/file', $file, 'md5');
 $saveName       = str_replace('\\', '/', $saveName);
-$fullName = think\facade\Filesystem::getDiskConfig('oss', 'url').'/'.$saveName;
+$fullName = \think\facade\Filesystem::getDiskConfig('oss', 'url').'/'.$saveName;
 ```
 
 

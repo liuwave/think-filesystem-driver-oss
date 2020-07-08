@@ -28,16 +28,18 @@ class Oss extends Driver
     protected function createAdapter() : AdapterInterface
     {
         $config = [
-          'accessId'     => $this->config[ 'accessId' ] ?? '',
-          'accessSecret' => $this->config[ 'accessSecret' ] ?? '',
-          'bucket'       => $this->config[ 'bucket' ],
-          'endpoint'     => $this->config[ 'endpoint' ],
+          'bucket'   => $this->config[ 'bucket' ],
+          'endpoint' => $this->config[ 'endpoint' ],
         ];
-        if (empty($config[ 'accessId' ])) {
+        if (empty($this->config[ 'credentials' ])) {
             //使用 函数计算 中的 credentials
-            $config[ 'accessId' ]     = request()->server('context_credentials_accessKeyID');
-            $config[ 'accessSecret' ] = request()->server('context_credentials_accessKeySecret');
-            $config[ 'token' ]        = request()->server('context_credentials_securityToken');
+            $config[ 'accessId' ]     = getenv('accessKeyID') ? : '';
+            $config[ 'accessSecret' ] = getenv('accessKeySecret') ? : '';
+            $config[ 'token' ]        = getenv('securityToken') ? : '';
+        }
+        else {
+            $config[ 'accessId' ]     = $this->config[ 'credentials' ][ 'accessId' ] ?? '';
+            $config[ 'accessSecret' ] = $this->config[ 'credentials' ][ 'accessSecret' ] ?? '';
         }
         
         return new OssAdapter($config);
