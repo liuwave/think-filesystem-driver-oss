@@ -10,38 +10,50 @@ declare(strict_types=1);
 
 namespace liuwave\think\filesystem\driver;
 
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemAdapter;
+use OSS\OssClient;
 use think\filesystem\Driver;
-use Xxtime\Flysystem\Aliyun\OssAdapter;
+use Zing\Flysystem\Oss\OssAdapter;
 
-/**
- * Class Oss
- * @package liuwave\think\filesystem\driver
- */
+
 class Oss extends Driver
 {
-    
+
     /**
-     * @return \League\Flysystem\AdapterInterface
-     * @throws \Exception
+     * @return FilesystemAdapter
      */
-    protected function createAdapter() : AdapterInterface
+    protected function createAdapter(): FilesystemAdapter
     {
+
         $config = [
-          'bucket'   => $this->config[ 'bucket' ],
-          'endpoint' => $this->config[ 'endpoint' ],
+            'bucket' => $this->config['bucket'],
+            'endpoint' => $this->config['endpoint'],
+            'host' => $this->config['host'],
         ];
-        if (empty($this->config[ 'credentials' ])) {
+
+        if (empty($this->config['credentials'])) {
             //使用 函数计算 中的 credentials
-            $config[ 'accessId' ]     = getenv('accessKeyID') ? : '';
-            $config[ 'accessSecret' ] = getenv('accessKeySecret') ? : '';
-            $config[ 'token' ]        = getenv('securityToken') ? : '';
+            $config['accessKeyId'] = getenv('accessKeyID') ?: '';
+            $config['accessKeySecret'] = getenv('accessKeySecret') ?: '';
+            $config['token'] = getenv('securityToken') ?: '';
+        } else {
+            $config['accessKeyId'] = $this->config['credentials']['accessKeyId'] ?? '';
+            $config['accessKeySecret'] = $this->config['credentials']['accessKeySecret'] ?? '';
         }
-        else {
-            $config[ 'accessId' ]     = $this->config[ 'credentials' ][ 'accessId' ] ?? '';
-            $config[ 'accessSecret' ] = $this->config[ 'credentials' ][ 'accessSecret' ] ?? '';
-        }
-        
-        return new OssAdapter($config);
+
+        $client = new OssClient(
+            $config['accessKeyId'], $config['accessKeySecret'], $config['endpoint'],
+            !empty($config['host'])
+        );
+
+        $config['options'] = [
+            'url' => $this->config['url'] ?? '',
+            'endpoint' => $config['endpoint'],
+            'bucket_endpoint' => '',
+            'temporary_url' => '',
+        ];
+
+
+        return new OssAdapter($client, $config['bucket'], $config['prefix'], null, null, $config['options']);
     }
 }

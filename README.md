@@ -1,6 +1,6 @@
 # think-filesystem-driver-oss
 
-这是一个基于阿里云对象存储的thinkphp6.0 Filesystem驱动，支持阿里云函数计算。
+这是一个基于阿里云对象存储的thinkphp6.1.1 Filesystem驱动，支持阿里云函数计算。
 
 ## 安装
 
@@ -14,15 +14,15 @@
 'oss' => [
     'type'         => \liuwave\think\filesystem\driver\Oss::class,
     'credentials'=>[//若为false,则使用函数计算 runtime context提供的 credentials
-        'accessId'     => '******',
-        'accessSecret' => '******',
+        'accessKeyId'     => '******',
+        'accessKeySecret' => '******',
     ],
     'bucket'       => 'bucket',
     'endpoint'     => 'oss-cn-hongkong.aliyuncs.com',
     'url'          => '//oss-test-for-all.oss-cn-beijing.aliyuncs.com'
 ],
 ```
-    
+
 ## oss访问权限
 
 ### 使用 函数计算 runtime context 提供的 credentials
@@ -32,13 +32,12 @@
 相关文档
 
 - [函数计算权限简介](https://help.aliyun.com/document_detail/52885.html)
-- [liuwave/fc-thinkphp](https://github.com/liuwave/fc-thinkphp)
 - [函数计算PHP运行环境](https://help.aliyun.com/document_detail/89032.html)
 
 
 ### 通用(同样适用于函数计算)
 
-accessId对应的用户需要 对应的oss bucket访问授权。
+accessKeyId对应的用户需要 对应的oss bucket访问授权。
 
 相关文档
 
@@ -66,7 +65,7 @@ MIT
 ## 参考
 
 - thinkphp
-- xxtime/flysystem-aliyun-oss
+- zing/flysystem-oss
 
 
 
@@ -75,4 +74,3 @@ MIT
 
 - [腾讯云liuwave/think-filesystem-driver-cos](https://github.com/liuwave/think-filesystem-driver-cos)
 - [七牛云liuwave/think-filesystem-driver-kodo](https://github.com/liuwave/think-filesystem-driver-kodo)
-
